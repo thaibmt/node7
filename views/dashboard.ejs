@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Quản lý ô tô</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/style.css" />
+</head>
+
+<body><!-- Navigation-->
+    <nav class="navbar navbar-expand-sm navbar-light fixed-top " id="mainNav">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Oto Shop</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Đăng nhập</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Đăng xuất</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- HOME PAGE-->
+    <header class="home" id="welcome-section">
+        <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+            <div class="d-flex justify-content-center">
+                <div class="text-center">
+                    <h1 class="mx-auto my-0 text-uppercase">Car Shop</h1>
+                    <h2 class="mx-auto mt-2 mb-5 ">Welcome to My Shop</h2>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="my-2">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <strong class="text-danger">
+                            <%= error ? (typeof error=='boolean' ? 'Có lỗi xảy ra' : error) :'' %>
+                        </strong>
+                        <strong class="text-success">
+                            <%= success ? 'Thành công' :'' %>
+                        </strong>
+                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col">Tên ô tô</th>
+                                <th scope="col">Giá</th>
+                                <th scope="col">Mô tả</th>
+                                <th scope="col" class="text-center">Chức năng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% cars.forEach((car,index)=>{ %>
+                                <tr>
+                                    <th scope="row">
+                                        <%= index+1 %>
+                                    </th>
+                                    <td>
+                                        <a href="cars/<%= car._id %>">
+                                            <%=car.title %>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <%= car.price %>đ
+                                    </td>
+                                    <td>
+                                        <%= car.description %>
+                                    </td>
+
+                                    <td class="d-flex text-center justify-content-center">
+                                        <a class="btn btn-primary mx-2" href="cars/<%= car._id %>">
+                                            Xem chi tiết</a>
+                                        <% if(role=='admin' ){ %>
+                                            <button class=" btn btn-warning mx-2"
+                                                onclick="editCar('<%= car._id %>')">Chỉnh
+                                                Sửa</button>
+                                            <form method="post" action="/cars/delete/<%= car._id %>">
+                                                <button class="btn btn-danger"
+                                                    onclick="confirmDelete('<%= car._id %>')">
+                                                    Xóa
+                                                </button>
+                                            </form>
+                                            <% } %>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-primary" onclick="addCar()">Thêm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal" id="carModal" tabindex="-1" role="dialog" aria-labelledby="carModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="carModalLabel">
+                        Thêm
+                    </h5>
+                    <button type="button" class="close btn btn-danger" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="carForm" method="post" action="/cars">
+                        <div class="form-group mb-2">
+                            <label for="carTitle">Tiêu đề</label>
+                            <input type="text" class="form-control" id="carTitle" name="title" required />
+                        </div>
+                        <div class="form-group mb-2">
+                            <label for="carPrice">Giá</label>
+                            <input type="number" min="0" class="form-control" id="carPrice" name="price" required />
+                        </div>
+                        <div class="form-group mb-2">
+                            <label for="carDescription">Mô tả ngắn</label>
+                            <textarea class="form-control" id="carDescription" name="description"></textarea>
+                        </div>
+                        <div class="text-center w-100">
+                            <button type="submit" class="btn btn-primary">Thêm</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
+    <script>
+        const cars = JSON.parse('<%- JSON.stringify(cars) %>');
+        const carForm = document.getElementById("carForm");
+        function confirmDelete(carId) {
+            var result = confirm("Bạn có chắc muốn xóa ô tô này?");
+            if (result) {
+                // Nếu người dùng đồng ý xóa, chuyển hướng đến route xóa ô tô
+                window.location.href = "/cars/delete/" + carId;
+            }
+        }
+        function addCar() {
+            document.getElementById("carModalLabel").textContent = "Thêm";
+            // reset dữ liệu input
+            document.getElementById("carTitle").value = "";
+            document.getElementById("carPrice").value = "";
+            document.getElementById("carDescription").value = "";
+            // Thay đổi action của form để gửi yêu cầu thêm mới
+            carForm.action = "/cars";
+            // Mở modal
+            $("#carModal").modal("show");
+        }
+        function editCar(carId) {
+            const car = cars.filter(car => car._id == carId)[0];
+            if (!car) {
+                return;
+            }
+            // Cập nhật nội dung modal với thông tin ô tô
+            document.getElementById("carModalLabel").textContent = "Sửa";
+            document.getElementById("carTitle").value = car.title;
+            document.getElementById("carPrice").value = car.price;
+            document.getElementById("carDescription").value = car.description;
+            // Thay đổi action của form để gửi yêu cầu chỉnh sửa thay vì thêm mới
+            document.getElementById("carForm").action =
+                "/cars/update/" + carId;
+
+            // Mở modal
+            $("#carModal").modal("show");
+
+        }
+    </script>
+</body>
+
+</html>

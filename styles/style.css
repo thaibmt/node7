@@ -1,0 +1,200 @@
+html {
+    scroll-padding-top: calc(4.5rem - 1px);
+}
+
+body {
+    letter-spacing: 0.0625em;
+    font-family: var(--bs-body-font-family);
+}
+
+/*Navbar*/
+#mainNav {
+    min-height: 3.5rem;
+    background-color: #fff;
+}
+
+#mainNav .navbar-toggler {
+    font-size: 80%;
+    padding: 0.75rem;
+    color: #64a19d;
+    border: 1px solid #64a19d;
+}
+
+#mainNav .navbar-toggler:focus {
+    outline: none;
+}
+
+#mainNav .navbar-brand {
+    color: #000;
+    font-weight: 700;
+    padding: 0.9rem 0;
+}
+
+#mainNav .navbar-nav .nav-item:hover {
+    color: #fff;
+    outline: none;
+    background-color: transparent;
+}
+
+.btn {
+    box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
+    padding: 1.25rem 2rem;
+    font-family: "Varela Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 80%;
+    text-transform: uppercase;
+    letter-spacing: 0.15rem;
+    border: 0;
+}
+
+.home {
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 35rem;
+    padding: 15rem 0;
+    background: url("https://images.unsplash.com/photo-1579546929662-711aa81148cf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+}
+
+.home h1,
+.home .h1 {
+    font-family: "Varela Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 2.5rem;
+    line-height: 3.5rem;
+    letter-spacing: 0.8rem;
+
+    background: linear-gradient(rgba(222, 222, 222, 1), rgba(0, 0, 0, 1));
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.home h2,
+.home .h2 {
+    max-width: 20rem;
+    font-size: 1rem;
+}
+
+@media (min-width: 768px) {
+
+    .home h1,
+    .home .h1 {
+        font-size: 4rem;
+        line-height: 4rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .home {
+        height: 10vh;
+        padding: 0;
+    }
+
+    .home h1,
+    .home .h1 {
+        font-size: 6.5rem;
+        line-height: 6.5rem;
+        letter-spacing: 0.8rem;
+    }
+
+    .home h2,
+    .home .h2 {
+        max-width: 30rem;
+        font-size: 1.25rem;
+    }
+}
+
+
+
+/*Project*/
+.projects {
+    padding: 5rem 0;
+}
+
+.projects .project-a {
+    font-size: 1.2rem;
+    color: #363636;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none !important;
+    margin: 0 auto;
+    padding: 14vw;
+    background: url(https://images.unsplash.com/photo-1641326038434-01b0217c18f1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80);
+}
+
+.projects .projects-link {
+
+    width: 40%;
+    height: 40%;
+    text-align: center;
+
+}
+
+.projects .featured-text {
+    padding: 2rem;
+}
+
+@media (min-width: 992px) {
+    .projects .featured-text {
+        padding: 0 0 0 3rem;
+        border-left: 0.5rem solid #64a19d;
+    }
+}
+
+.projects .project-text {
+    padding: 3rem;
+    font-size: 90%;
+}
+
+@media (min-width: 992px) {
+    .projects .project-text {
+        padding: 5rem;
+    }
+
+    .projects .project-text hr {
+        border-color: #64a19d;
+        border-width: 0.25rem;
+        width: 30%;
+    }
+}
+
+/*Contact*/
+
+.contact {
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 10rem 0;
+    background: url("https://images.unsplash.com/photo-1579546929662-711aa81148cf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+}
+
+.contact .card {
+    border: 0;
+    border-bottom: 0.25rem solid #000;
+    background: var(--bs-gradient);
+}
+
+.contact .card h4,
+.contact .card .h4 {
+    font-size: 0.8rem;
+    font-family: "Varela Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    text-transform: uppercase;
+    letter-spacing: 0.15rem;
+}
+
+.contact .card hr {
+    border-color: black;
+    border-width: 0.25rem;
+    width: 3rem;
+}
+
+i {
+    color: var(--bs-indigo);
+}
